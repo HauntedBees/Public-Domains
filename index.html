@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta name="viewport" content="maximum-scale=1, user-scalable=0"/>
+        <style>
+            @font-face { font-family: "PressStart2P"; src: url("PressStart2P.ttf") }
+            body {
+                background: linear-gradient(0deg, #825360, #4F357C);
+                font-family: "PressStart2P";
+				text-align: center;
+				border: 0 !important;
+				margin: 0 !important;
+				padding: 0 !important;
+                height: 100%;
+                overflow: hidden;
+			}
+            canvas {
+                width: 100%; height: 100%;
+                left: 0; top: 0;
+                position: absolute;
+            }
+            #loadingPage { margin-top: 25% }
+            #loadingImg { width: 80% }
+            #loadText { color: white; margin-top: 30%; font-size: 48px; }
+            #loadText2 { color: white; margin-top: 40px; font-size: 36px; }
+            #bottomText {
+                position: absolute;
+                bottom: 12px;
+                left: 20px;
+                font-size: 22px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="loadingPage">
+            <img id="loadingImg" src="img/logo.png" />
+            <div id="loadText">Loading</div>
+            <div id="loadText2">Loading</div>
+            <div id="bottomText">
+                &copy; 2019 Haunted Bees Productions (v1.1)
+            </div>
+        </div>
+        <div id="canvasContainer">
+            <canvas id="background"></canvas>
+            <canvas id="characters"></canvas>
+            <canvas id="HUD"></canvas>
+            <canvas id="menu"></canvas>
+            <canvas id="menutext"></canvas>
+        </div>
+        <div id="fontLoader">
+            <div style="font-family:PressStart2P">&nbsp;</div>
+        </div>
+        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        <script type="text/javascript" src="js/rendering.js"></script>
+        <script type="text/javascript" src="js/gachas.js"></script>
+        <script type="text/javascript" src="js/dailies.js"></script>
+        <script type="text/javascript" src="js/player.js"></script>
+        <script type="text/javascript" src="js/battle.js"></script>
+        <script type="text/javascript" src="js/quests.js"></script>
+        <script type="text/javascript" src="js/menu.js"></script>
+        <script type="text/javascript" src="js/game.js"></script>
+        <script type="text/javascript">document.addEventListener("DOMContentLoaded", game.Init);</script>
+    </body>
+</html>
