@@ -1,13 +1,14 @@
 const gfx = {
     canvas: {},  ctx: {}, tintContext: null, 
     canvasWidth: 0, canvasHeight: 0, isPortrait: false, 
-    spritesheets: [], frameBottomHeight: 42, 
+    spritesheets: [], frameBottomHeight: 42, goodSize: 200, 
     SetCanvases: function(canvas, ctx) {
         gfx.canvas = canvas;
         gfx.ctx = ctx;
         gfx.canvasWidth = window.innerWidth;
         gfx.canvasHeight = window.innerHeight;
         gfx.isPortrait = gfx.canvasHeight > gfx.canvasWidth;
+        gfx.GetGoodFontSize();
         for(const key in gfx.canvas) {
             gfx.canvas[key].width = gfx.canvasWidth;
             gfx.canvas[key].height = gfx.canvasHeight;
@@ -188,12 +189,25 @@ const gfx = {
         ctx.font = size + "px PressStart2P";
         ctx.fillText(t, x, y);
     },
+    GetGoodFontSize: function() {
+        const ctx = gfx.ctx["menutext"];
+        while(gfx.goodSize > 10) {
+            ctx.font = gfx.goodSize + "px PressStart2P";
+            const textInfo = ctx.measureText("It's very important to save the bees.");
+            if(textInfo.width > gfx.canvasWidth) {
+                gfx.goodSize -= 1;
+            } else {
+                console.log("GOOD SIZE IS " + gfx.goodSize);
+                return;
+            }
+        }
+    },
     DrawWrappedText: function(t, x, y, maxWidth, maxHeight, centerAlign, forcedSize) {
         const ctx = gfx.ctx["menutext"];
         ctx.textAlign = centerAlign ? "center" : "left";
         ctx.textBaseline = "top";
         ctx.fillStyle = "#000000";
-        let size = forcedSize || 200, height = 0;
+        let size = forcedSize || gfx.goodSize, height = 0;
         while(size > 1) {
             ctx.font = size + "px PressStart2P";
             const ddy = size * 1.25, ts = t.split(" ");
