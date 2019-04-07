@@ -23,7 +23,7 @@ const game = {
             LevelUpGatcha(player.gachas[i]);
         }
         const canvasLayers = ["background", "characters", "HUD", "menu", "menutext"];
-        const assetsToLoad = ["coin", "pd0", "pd1", "pd2", "pd3", "pd4", "pd5", "pd6", "pd7", "pd8", "pd9",
+        const assetsToLoad = ["coin", "pd0", "pd1", "pd2", "pd3", "pd4", "pd5", "pd6", "pd7", "pd8", "pd9", "pd10", 
                               "mapicons", "bgmenu", "bgcolus", "bg0", "bg1", "bg2", "bg3", "bg4", 
                               "charframe", "charframebottom", "sparkle",
                               "banker",                                 // https://commons.wikimedia.org/wiki/File:The_Banker.JPG

@@ -1,10 +1,8 @@
 const messages = [
-    { condition: function() { return true; },
-      text: "Welcome to Public Domains: Gacha Game, the only mobile game where you can collect and battle public domain photos, paintings, clip art, and more! Unless there's another one we don't know about, but that would be kind of sad given that this is a pretty silly concept. Anyway, we hope you enjoy the game! Tap the DISMISS button below to, get this, DISMISS this message! Wild, right?" },
-    { condition: function() { return true; },
-      text: "Happy April, everybody! Today marks the beginning of the 'The April Fool' summoning event! Now's the perfect time to collect some powerful public domain clowns, jesters, and goofballs! To celebrate the start of this event, you've received a Public Domain Five-Ticket, which you can use to summon five characters without having to spend any ePloids! Let's get goofy!" },
-    { condition: function() { return true; },
-      text: "The version 1.1 update is now out! Congratulations on still playing this game two days after it came out! I'm not sure why you decided to do that, but I'm proud of you! The main part of this update is SIXTEEN NEW SUMMONS, some balance tweaks, and bug fixes! Plus, every day you log in, you'll get 30 ePloids! Epic!" }
+    "Welcome to Public Domains: Gacha Game, the only mobile game where you can collect and battle public domain photos, paintings, clip art, and more! Unless there's another one we don't know about, but that would be kind of sad given that this is a pretty silly concept. Anyway, we hope you enjoy the game! Tap the DISMISS button below to, get this, DISMISS this message! Wild, right?",
+    "Happy April, everybody! Today marks the beginning of the 'The April Fool' summoning event! Now's the perfect time to collect some powerful public domain clowns, jesters, and goofballs! To celebrate the start of this event, you've received a Public Domain Five-Ticket, which you can use to summon five characters without having to spend any ePloids! Let's get goofy!",
+    "The version 1.1 update is now out! Congratulations on still playing this game two days after it came out! I'm not sure why you decided to do that, but I'm proud of you! The main part of this update is SIXTEEN NEW SUMMONS, some balance tweaks, and bug fixes! Plus, every day you log in, you'll get 30 ePloids! Epic!", 
+    "What is likely the final update -- Version 1.2 -- has arrived! The most important part? Realistically, the bug fixes and quality of life fixes, but no that doesn't matter. There are now 176 characters to summon, including the Zodiac Collection, the Dover Collection, and one more April Fool! Gotta catch them all! See, I said \"them\" instead of \"em\" so it's legal."
 ];
 const dailies = {
     GetDayID: function(asObj) {
@@ -59,11 +57,10 @@ const dailies = {
         return { numPrizes: prizes, active: missions };
     },
     GetMessages: function() {
-        const msg = [], d = new Date();
+        const msg = [];
         for(let i = 0; i < messages.length; i++) {
-            const me = messages[i];
-            if(player.messagesCleared.indexOf(i) < 0 && me.condition(d)) {
-                msg.push({ idx: i, text: me.text });
+            if(player.messagesCleared.indexOf(i) < 0) {
+                msg.push({ idx: i, text: messages[i] });
             }
         }
         const today = dailies.GetDayID();
