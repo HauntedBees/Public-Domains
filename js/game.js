@@ -25,7 +25,7 @@ const game = {
         const canvasLayers = ["background", "characters", "HUD", "menu", "menutext"];
         const assetsToLoad = ["coin", "pd0", "pd1", "pd2", "pd3", "pd4", "pd5", "pd6", "pd7", "pd8", "pd9",
                               "mapicons", "bgmenu", "bgcolus", "bg0", "bg1", "bg2", "bg3", "bg4", 
-                              "charframe", "charframebottom", "charframesel", "charframebottomsel", "sparkle",
+                              "charframe", "charframebottom", "sparkle",
                               "banker",                                 // https://commons.wikimedia.org/wiki/File:The_Banker.JPG
                               "chest",                                  // https://free-images.com/display/treasure_chest_chest_gems.html https://free-images.com/display/treasure_chest_chest_box_0.html
                               "crosshair",                              // https://opengameart.org/content/10-aimtargets

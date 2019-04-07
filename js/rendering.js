@@ -63,13 +63,8 @@ const gfx = {
         sx = sx || 0; sy = sy || 0;
         const size = gfx.GetSizeFromScale(scale);
         const acty = y - (fromBottom ? size : 0);
-        const dframe = fromBottom ? (size - scale * (gfx.frameBottomHeight * 2 + 20)) : 1;
         gfx.DrawImage(gfx.ctx["characters"], gfx.spritesheets["charframe"], sx * 400, sy * 400, 400, 400, x, acty, size, size);
-        if(fromBottom) {
-            gfx.DrawImage(gfx.ctx["HUD"], gfx.spritesheets["charframebottom"], sx * 400, sy * gfx.frameBottomHeight, 400, gfx.frameBottomHeight, x, acty + dframe, size, size * 0.105);
-        } else {
-            gfx.DrawImage(gfx.ctx["HUD"], gfx.spritesheets["charframebottom"], sx * 400, sy * gfx.frameBottomHeight, 400, gfx.frameBottomHeight, x, acty + size - gfx.frameBottomHeight / 2, size, size * 0.105);
-        }
+        gfx.DrawImage(gfx.ctx["HUD"], gfx.spritesheets["charframebottom"], sx * 400, sy * 400, 400, 400, x, acty, size, size);
     },
     DrawEffect: function(x, y, sx, sy, size, layer) {
         layer = layer || "HUD";
