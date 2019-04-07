@@ -11,7 +11,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#FF00FF", 0.75);
             DoTint(t, "#FF0000", 1);
-            t.hp -= a.power * 2;
+            t.hp -= a.power * 4;
         }
     },
     "shield": {
@@ -19,7 +19,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#00FFFF", 2);
             a.shield = Math.min((a.rarity / 4) * 100, a.power * 5);
-            a.shieldPower = a.power;
+            a.shieldPower = (a.rarity - 2) * a.power;
         }
     },
     "shieldAll": {
@@ -28,7 +28,7 @@ const specials = {
             DoForAll(isPlayer, function(me) {
                 DoTint(me, "#00FFFF", 2);
                 me.shield = Math.min((a.rarity / 4) * 100, a.power * 5);
-                me.shieldPower = a.power;
+                me.shieldPower = (a.rarity - 2) * a.power;
             });
         }
     },
@@ -37,7 +37,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#00FFFF", 2);
             a.shield = Math.min((a.rarity / 4) * 150, a.power * 6);
-            a.shieldPower = a.power * 2;
+            a.shieldPower = (a.rarity - 2) * 6 * a.power;
         }
     },
     "shieldAll2": {
@@ -46,7 +46,7 @@ const specials = {
             DoForAll(isPlayer, function(me) {
                 DoTint(me, "#00FFFF", 2);
                 me.shield = Math.min((a.rarity / 4) * 150, a.power * 6);
-                me.shieldPower = a.power * 2;
+                me.shieldPower = (a.rarity - 2) * 4 * a.power;
             });
         }
     },
@@ -55,7 +55,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#00FFFF", 2);
             a.shield = Math.min((a.rarity / 4) * 300, a.power * 15);
-            a.shieldPower = a.power;
+            a.shieldPower = (a.rarity - 1) * a.power;
         }
     },
     "speed": {
@@ -63,7 +63,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#0000FF", 1);
             a.speed = Math.min((a.rarity / 4) * 100, a.power * 5);
-            a.speedPower = a.power;
+            a.speedPower = 2 * a.power;
         }
     },
     "speedAll": {
@@ -72,7 +72,7 @@ const specials = {
             DoForAll(isPlayer, function(me) {
                 DoTint(me, "#0000FF", 1);
                 me.speed = Math.min((a.rarity / 4) * 100, a.power * 5);
-                me.speedPower = a.power;
+                me.speedPower = 2 * a.power;
             });
         }
     },
@@ -81,7 +81,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#0000FF", 1);
             a.speed = Math.min((a.rarity / 4) * 130, a.power * 6);
-            a.speedPower = a.power * 2;
+            a.speedPower = 4 * a.power;
         }
     },
     "speedAll2": {
@@ -100,7 +100,7 @@ const specials = {
             DoTint(a, "#FF00FF", 0.75);
             DoTint(t, "#77005B", 1);
             t.poison = Math.min((a.rarity / 4) * 100, a.power * 5);
-            t.poisonPower = a.power;
+            t.poisonPower = a.rarity * a.rarity * a.power;
         }
     },
     "poison2": {
@@ -109,7 +109,7 @@ const specials = {
             DoTint(a, "#FF00FF", 0.75);
             DoTint(t, "#77005B", 1);
             t.poison = Math.min((a.rarity / 4) * 150, a.power * 10);
-            t.poisonPower = a.power * 2;
+            t.poisonPower = a.rarity * a.rarity * a.power * 2;
         }
     },
     "poisonAll": {
@@ -119,7 +119,7 @@ const specials = {
             DoForAll(!isPlayer, function(me) {
                 DoTint(me, "#77005B", 1);
                 me.poison = Math.min((a.rarity / 4) * 100, a.power * 5);
-                me.poisonPower = a.power;
+                me.poisonPower = (a.rarity - 2) * a.rarity * a.power;
             });
         }
     },
@@ -160,7 +160,7 @@ const specials = {
         name: "HealSelf",
         func: function(a, t) {
             DoTint(a, "#FFFFFF", 1);
-            a.hp = Math.min(a.maxhp, a.hp + a.power * 2);
+            a.hp = Math.min(a.maxhp, a.hp + a.power * a.rarity);
         }
     },
     "healAll": {
@@ -168,7 +168,7 @@ const specials = {
         func: function(a, t, isPlayer) {
             DoForAll(isPlayer, function(me) {
                 DoTint(me, "#FFFFFF", 1);
-                me.hp = Math.min(me.maxhp, me.hp + a.power * 2);
+                me.hp = Math.min(me.maxhp, me.hp + a.power * a.rarity);
             });
             DoTint(a, "#FFFFAA", 0.75);
         }
@@ -189,7 +189,7 @@ const specials = {
             const weakest = arr[lowestIdx];
             DoTint(a, "#FFFFAA", 0.75);
             DoTint(weakest, "#FFFFFF", 0.75);
-            weakest.hp = Math.min(weakest.maxhp, weakest.hp + a.power * 3);
+            weakest.hp = Math.min(weakest.maxhp, weakest.hp + a.power * a.rarity);
         }
     },
     "healWeak2": {
@@ -208,7 +208,7 @@ const specials = {
             const weakest = arr[lowestIdx];
             DoTint(a, "#FFFFAA", 0.75);
             DoTint(weakest, "#FFFFFF", 0.75);
-            weakest.hp = Math.min(weakest.maxhp, weakest.hp + a.power * 6);
+            weakest.hp = Math.min(weakest.maxhp, weakest.hp + a.power * a.rarity * 4);
         }
     },
     "healAll2": {
@@ -216,7 +216,7 @@ const specials = {
         func: function(a, t, isPlayer) {
             DoForAll(isPlayer, function(me) {
                 DoTint(me, "#FF00FF", 1);
-                me.hp = Math.min(me.maxhp, me.hp + a.power * 4);
+                me.hp = Math.min(me.maxhp, me.hp + a.power * a.rarity * 4);
             });
             DoTint(a, "#FFFFAA", 0.75);
         }
@@ -239,7 +239,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#FF00FF", 0.75);
             DoTint(t, "#66FF66", 1);
-            t.freeze = Math.min((a.rarity / 4) * 100, a.power * 5);
+            t.freeze = Math.min((a.rarity / 4) * 100, a.power * 4);
         }
     },
     "freeze2": {
@@ -247,7 +247,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#FF00FF", 0.75);
             DoTint(t, "#66FF66", 1);
-            t.freeze = Math.min((a.rarity / 4) * 300, a.power * 10);
+            t.freeze = Math.min((a.rarity / 4) * 300, a.power * 8);
         }
     },
     "weak": {
@@ -255,7 +255,7 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#0000FF", 1);
             t.weak = a.power * 10;
-            t.weakPower = Math.min((a.rarity / 4) * 100, a.power * 5);
+            t.weakPower = Math.min((a.rarity / 4) * 100, a.power * a.rarity);
         }
     },
     "weakAll": {
@@ -263,7 +263,7 @@ const specials = {
         func: function(a, t, isPlayer) {
             DoForAll(!isPlayer, function(me) {
                 DoTint(me, "#0000FF", 1);
-                me.weak = Math.min((a.rarity / 4) * 100, a.power * 5);
+                me.weak = Math.min((a.rarity / 4) * 100, a.power * a.rarity);
                 me.weakPower = a.power;
             });
         }
@@ -272,7 +272,7 @@ const specials = {
         name: "Weaken2",
         func: function(a, t) {
             DoTint(a, "#0000FF", 1);
-            t.weak = Math.min((a.rarity / 4) * 200, a.power * 10);
+            t.weak = Math.min((a.rarity / 4) * 200, a.power * a.rarity * 4);
             t.weakPower = a.power * 2;
         }
     },
@@ -281,7 +281,7 @@ const specials = {
         func: function(a, t, isPlayer) {
             DoForAll(!isPlayer, function(me) {
                 DoTint(me, "#0000FF", 1);
-                me.weak = Math.min((a.rarity / 4) * 200, a.power * 10);
+                me.weak = Math.min((a.rarity / 4) * 200, a.power * a.rarity * 3);
                 me.weakPower = a.power * 2;
             });
         }
@@ -302,8 +302,8 @@ const specials = {
         func: function(a, t) {
             DoTint(a, "#FF0000", 0.75);
             DoTint(t, "#FF0000", 1);
-            t.hp -= a.power * 3;
-            a.hp -= a.power * 2;
+            t.hp -= a.power * 7;
+            a.hp -= a.power * 3;
         }
     },
     "ult": {
@@ -311,7 +311,7 @@ const specials = {
         func: function(a, t, isPlayer) {
             DoForAll(isPlayer, function(me) {
                 DoTint(me, "#0000FF", 1);
-                me.ult = Math.min((a.rarity / 4) * 150, 10 * Math.ceil(a.power / 3));
+                me.ult = Math.min((a.rarity / 4) * 150, (a.rarity - 2) * (a.rarity - 1) * Math.ceil(a.power / 3));
             });
         }
     },
@@ -319,7 +319,7 @@ const specials = {
         name: "Aggro",
         func: function(a, t) {
             DoTint(a, "#FF0000", 2);
-            a.aggro = Math.min((a.rarity / 4) * 150, a.power * 15);
+            a.aggro = Math.min((a.rarity / 4) * 150, a.rarity * a.power * 5);
         } 
     }
 };

@@ -72,12 +72,17 @@ function GetEXPFromGacha(g) { return 5 * g.level * g.power; }
 function GetGatchaUpgradePrice(g) { // measured in Coinies, not ePloids
     return Math.floor((g.rarity / 2) * g.level) * 10;
 }
+const shittySkills = ["sand", "rage", "weak", "shield", "strong"];
+const greatSkills = ["cure", "freeze2", "freeze", "healAll2", "healWeak2", "shieldAll2", "shieldAll", "speedAll", "speedAll2"];
 function Gacha(name, file, x, y, rarity, specialType, desc, url) {
     this.name = decodeURIComponent(name);
     this.file = "pd" + file;
     this.x = x;
     this.y = y;
     this.level = 1;
+    this.special = specialType || "strong";
+    const isShittyPower = shittySkills.indexOf(this.special) >= 0;
+    const isGreatPower = greatSkills.indexOf(this.special) >= 0;
     const numVowels = url.match(/[aeiou]/gi).length;
     const urlLength = url.length;
     const numLongLetters = url.match(/[bdijlpqty]/gi).length;
@@ -86,7 +91,7 @@ function Gacha(name, file, x, y, rarity, specialType, desc, url) {
     const numCapitalsOrH = url.match(/[A-Zh]/g).length;
     const notLetters = url.match(/[^a-z]/gi).length;
     const oddLetters = url.match(/[acegikmoqsuwy]/gi).length;
-    const rarityMult = ((rarity + 5) / 7);
+    const rarityMult = ((rarity + 5) / 7) * (isShittyPower ? 1.25 : (isGreatPower ? 0.9 : 1));
     this.hp = 20 + Math.ceil(rarityMult * numVowels);
     this.maxhp = this.hp;
     this.power = Math.ceil(rarityMult * numCapitalsOrH);
@@ -98,8 +103,6 @@ function Gacha(name, file, x, y, rarity, specialType, desc, url) {
     this.expToNextLevel = notLetters;
     this.desc = desc;
     this.rarity = rarity;
-    this.special = specialType || "strong";
-    //this.equipment = [];
     this.drawInfo = { x: 0, y: 0, scale: 0 };
 }
 const focus5 = [32, 33, 34, 35, 36];
@@ -275,4 +278,20 @@ const gachas = [
     new Gacha("Soldier Pete", 8, 1, 3, 3, "weak", "This olde English soldier probably died a coward's death hiding in a bog crying or something. Give him a wedgie if you see him in the afterlife.", "https://www.fromoldbooks.org/OldEngland/pages/0193-Costume-of-Soldier/"),
     new Gacha("Queen Mab", 8, 2, 3, 3, "heal", "If you've read Romeo and Juliet and, for some reason, remember anything about it other than \"they both died of thirst\" then you might recognize Queen Mab as a fairy who pranks sleeping people. You know, standard fairy faire, like putting their hands in a bowl of warm water.", "https://www.fromoldbooks.org/Edgar-TreasuryOfVerse/pages/205-Queen-Mab-no-words/"),
     new Gacha("Booky Bookerson", 8, 3, 3, 3, "poison", "Book it, boys! Booky Bookerson is here and he's gonna book us! How can he move so fast with that weird rectangle body??", "https://www.fromoldbooks.org/Thompson-TheGnomeKingOfOz/pages/175-the-bookman/")
+    /*new Gacha("", 9, 0, 0, 3, "", "", ""),
+    new Gacha("", 9, 1, 0, 3, "", "", ""),
+    new Gacha("", 9, 2, 0, 3, "", "", ""),
+    new Gacha("", 9, 3, 0, 3, "", "", ""),
+    new Gacha("", 9, 0, 1, 3, "", "", ""),
+    new Gacha("", 9, 1, 1, 3, "", "", ""),
+    new Gacha("", 9, 2, 1, 3, "", "", ""),
+    new Gacha("", 9, 3, 1, 3, "", "", ""),
+    new Gacha("", 9, 0, 2, 3, "", "", ""),
+    new Gacha("", 9, 1, 2, 3, "", "", ""),
+    new Gacha("", 9, 2, 2, 3, "", "", ""),
+    new Gacha("", 9, 3, 2, 3, "", "", ""),
+    new Gacha("", 9, 0, 3, 3, "", "", ""),
+    new Gacha("", 9, 1, 3, 3, "", "", ""),
+    new Gacha("", 9, 2, 3, 3, "", "", ""),
+    new Gacha("", 9, 3, 3, 3, "", "", "")*/
 ];
