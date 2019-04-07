@@ -106,7 +106,7 @@ function Gacha(name, file, x, y, rarity, specialType, desc, url) {
     this.rarity = rarity;
     this.drawInfo = { x: 0, y: 0, scale: 0 };
 }
-const focus5 = [32, 33, 34, 35, 36];
+const focus5 = [32, 33, 34, 35, 36, 152];
 const reg5 = [];
 const reg4 = [];
 const reg3 = [];
@@ -278,21 +278,37 @@ const gachas = [
     new Gacha("The Whale", 8, 0, 3, 5, "healWeak2", "Cetus is a non-canon Zodiac sign. Cetuses, along with Ophiuchuses, kind of got the short end of the stick, since nobody is allowed to be born under their constellations. Cetus makes up for this by being a sea monster that eats sailors for fun and profit.", "https://en.wikipedia.org/wiki/File:Sidney_Hall_-_Urania%27s_Mirror_-_Psalterium_Georgii,_Fluvius_Eridanus,_Cetus,_Officina_Sculptoris,_Fornax_Chemica,_and_Machina_Electrica.jpg"),
     new Gacha("Soldier Pete", 8, 1, 3, 3, "weak", "This olde English soldier probably died a coward's death hiding in a bog crying or something. Give him a wedgie if you see him in the afterlife.", "https://www.fromoldbooks.org/OldEngland/pages/0193-Costume-of-Soldier/"),
     new Gacha("Queen Mab", 8, 2, 3, 3, "heal", "If you've read Romeo and Juliet and, for some reason, remember anything about it other than \"they both died of thirst\" then you might recognize Queen Mab as a fairy who pranks sleeping people. You know, standard fairy faire, like putting their hands in a bowl of warm water.", "https://www.fromoldbooks.org/Edgar-TreasuryOfVerse/pages/205-Queen-Mab-no-words/"),
-    new Gacha("Booky Bookerson", 8, 3, 3, 3, "poison", "Book it, boys! Booky Bookerson is here and he's gonna book us! How can he move so fast with that weird rectangle body??", "https://www.fromoldbooks.org/Thompson-TheGnomeKingOfOz/pages/175-the-bookman/")
-    /*new Gacha("", 9, 0, 0, 3, "", "", ""),
-    new Gacha("", 9, 1, 0, 3, "", "", ""),
-    new Gacha("", 9, 2, 0, 3, "", "", ""),
-    new Gacha("", 9, 3, 0, 3, "", "", ""),
-    new Gacha("", 9, 0, 1, 3, "", "", ""),
-    new Gacha("", 9, 1, 1, 3, "", "", ""),
-    new Gacha("", 9, 2, 1, 3, "", "", ""),
-    new Gacha("", 9, 3, 1, 3, "", "", ""),
-    new Gacha("", 9, 0, 2, 3, "", "", ""),
-    new Gacha("", 9, 1, 2, 3, "", "", ""),
-    new Gacha("", 9, 2, 2, 3, "", "", ""),
-    new Gacha("", 9, 3, 2, 3, "", "", ""),
-    new Gacha("", 9, 0, 3, 3, "", "", ""),
-    new Gacha("", 9, 1, 3, 3, "", "", ""),
-    new Gacha("", 9, 2, 3, 3, "", "", ""),
-    new Gacha("", 9, 3, 3, 3, "", "", "")*/
+    new Gacha("Booky Bookerson", 8, 3, 3, 3, "poison", "Book it, boys! Booky Bookerson is here and he's gonna book us! How can he move so fast with that weird rectangle body??", "https://www.fromoldbooks.org/Thompson-TheGnomeKingOfOz/pages/175-the-bookman/"),
+    new Gacha("God's Least Favorite Lion", 9, 0, 0, 3, "speedAll", "This lion is wearing a shirt and has a human-like face. I don't like it. God doesn't like it. If you like it, you're wrong. Please don't put this creature in your party.", "https://www.fromoldbooks.org/Rylands-Haggadah/pages/033b-detail-lion-with-tabard/"),
+    new Gacha("Medusa", 9, 1, 0, 4, "freeze", "You know, I can't really blame Mesuda for turning people to stone. If I had that power, and people kept barging into my house, I'd probably do the same. Maybe Medusa just had social anxiety, ever think of THAT, classicists??", "https://www.fromoldbooks.org/Jugend-1900/pages/08-128-panik-detail-medusa/"),
+    new Gacha("Dan Backslide", 9, 2, 0, 3, "poison2", "The antagonist of the 1942 cartoon \"The Dover Boys at Pimento University,\" which entered the Public Domain because SOME animation companies don't try to rewrite copyright law every other decade.", "https://youtu.be/jR0eBWDVAtw?t=494"),
+    new Gacha("Tom Dover", 9, 3, 0, 3, "rage", "The eldest of the Dover Boys, Tom enjoys sports and riding tandem bicycles all by himself.", "https://youtu.be/jR0eBWDVAtw?t=494"),
+    new Gacha("Dick Dover", 9, 0, 1, 3, "shield", "The middle child of the Dover Boys, Dick enjoys riding bicycles that are too big for him to actually ride properly. He uses his psychic powers to propel the bike forward.", "https://youtu.be/jR0eBWDVAtw?t=154"),
+    new Gacha("Larry Dover", 9, 1, 1, 3, "healAll", "Hey, hey, why didn't they name one of the Dover Boys \"Ben?\" Ha ha, wouldn't it be funny? Because then it'd sound like his name is \"bend over\" which is what you do when you find a quarter on the ground and quarters are the funniest currency! Ha ha!", "https://youtu.be/jR0eBWDVAtw?t=96"),
+    new Gacha("Baba Yaga", 9, 2, 1, 4, "aggro", "An enigmatic Slavic witch whose allegiances and powers vary depending on the folk tale, because that's kind of how folklore works. In this story, she will help you, but only if you give her some beets.", "https://en.wikipedia.org/wiki/File:Babayaga_lubok.jpg"),
+    new Gacha("D.B. Cooper", 9, 3, 1, 5, "speedAll2", "A mysterious man who hijacked a plane in 1971. His identity is still unknown, making his the only unsolved case of airplane hijacking in commercial aviation history. My theory? He was a wizard doing it as a prank.", "https://en.wikipedia.org/wiki/File:DBCooper.jpg"),
+    new Gacha("Pierrot", 9, 0, 2, 5, "aggro", "A sad clown. I'd be pretty sad too if I had to dress up like that. Looks right uncomfortable, doesn't it? Definitely a hassle to put on and take off, too. What a shame.", "https://en.wikipedia.org/wiki/File:Leo_Rauth_Ein_gern_gesehener_Gast.JPG"),
+    new Gacha("Future Soldier 2030", 9, 1, 2, 3, "shield2", "In the future, soldiers will be even better at killing people without being killed. However, if the other army also has super soldiers, this fancy armor won't matter that much... so, I guess this is used to make killing civilians less dangerous. Great.", "https://en.wikipedia.org/wiki/File:Future_Soldier_2030.jpg"),
+    new Gacha("Mashpotato", 9, 2, 2, 3, "speed", "This bird is round and soft like mashpotato.", "https://foter.com/photo2/portrait-of-little-bird-on-white-background/"),
+    new Gacha("Craw-Daddy", 9, 3, 2, 3, "shieldAll", "A lobster-like crustacean that likes making dad jokes. It also likes other dadlike things that I can't describe because I don't want to boost this game's rating on the Play Store.", "https://foter.com/photo2/canker-crayfish-party-red-seafood-animals/"),
+    new Gacha("Car-Ruiner", 9, 0, 3, 3, "poisonAll", "This bird ruins cars. If you've ever seen one, you can guess how. And I JUST WASHED IT, TOO!!", "https://foter.com/photo2/dove-bird-animals-birds-pigeons/"),
+    new Gacha("Take This", 9, 1, 3, 3, "healWeak", "It's dangerous to go alone, take this. It will surely aid you in your travels.", "https://foter.com/photo2/puppy-dogs-animals-sweet-chihuahua-2/"),
+    new Gacha("Lactose Hydrolysis", 9, 2, 3, 3, "cure", "When you drinky milko, the lactose breaks down into galactose and glucose. However, this is not true if you are lactose intolerant. If you can't drinko milky, I recommend trying out a lactose free milk, or a plant-based alternative. My favorites have been oat milk and flax milk. Give 'em a try, even if you can drinke milki! They're pretty good!", "https://en.wikipedia.org/wiki/File:Hydrolysis_of_lactose.svg"),
+    new Gacha("Tryna Understand Art", 9, 3, 3, 3, "shieldLong", "\"So, like, is it in a 3x3 grid because it looks nice, or like, is there some reason, or... wait, does 'looking nice' count as a reason? Can artists DO that...? Can they just make something look a certain way because they like the way it looks? Uhh... hmmm...\"", "https://foter.com/photo2/wooden-floors-artfully-gallery/")
+    /*new Gacha("", 10, 0, 0, 3, "", "", ""),
+    new Gacha("", 10, 1, 0, 3, "", "", ""),
+    new Gacha("", 10, 2, 0, 3, "", "", ""),
+    new Gacha("", 10, 3, 0, 3, "", "", ""),
+    new Gacha("", 10, 0, 1, 3, "", "", ""),
+    new Gacha("", 10, 1, 1, 3, "", "", ""),
+    new Gacha("", 10, 2, 1, 3, "", "", ""),
+    new Gacha("", 10, 3, 1, 3, "", "", ""),
+    new Gacha("", 10, 0, 2, 3, "", "", ""),
+    new Gacha("", 10, 1, 2, 3, "", "", ""),
+    new Gacha("", 10, 2, 2, 3, "", "", ""),
+    new Gacha("", 10, 3, 2, 3, "", "", ""),
+    new Gacha("", 10, 0, 3, 3, "", "", ""),
+    new Gacha("", 10, 1, 3, 3, "", "", ""),
+    new Gacha("", 10, 2, 3, 3, "", "", ""),
+    new Gacha("", 10, 3, 3, 3, "", "", "")*/
 ];
