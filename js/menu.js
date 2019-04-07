@@ -818,7 +818,7 @@ const menu = {
     },
     HandlePartyPressClick: function(si, press) {
         if(si.selectType === press.selType && si.selected === press.idx) {
-            if(menu.doubleTapDelay > 0) {
+            if(menu.doubleTapDelay > 0 && si.selected < player.party.length) {
                 si.state = 1;
                 if(si.selectType === 0) {
                     si.selectType = 1;
