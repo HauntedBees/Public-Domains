@@ -181,6 +181,7 @@ const battle = {
             gfx.DrawButton(di.x, playerY + buttonHeight, playerSize, buttonHeight, specials[me.special].name, this.pressedButton === (i + 0.5), me.freeze > 0 || me.hp <= 0 || me.currCool2 < me.cooldown2);
             gfx.DrawAttackMeter(di.x, playerY + 2 * buttonHeight - meterHeight, playerSize, meterHeight, me.currCool2, me.cooldown2);
             battle.DrawStatusEffects(me, playerY - playerSize - healthHeight / 2, playerSize, false);
+            if(di.missCount-- > 0) { gfx.DrawTextToFit("MISS!", di.x + playerSize / 2, playerY - playerSize / 2, playerSize, "#FFFFFF"); }
         }
         const enemyY = draw["enemyY"];
         const enemySize = draw["enemySize"];
@@ -194,6 +195,7 @@ const battle = {
             if(i === battle.targetIdx) {
                 gfx.DrawCrosshair(di.x, enemyY, draw["enemyScale"], true, battle.cursorRotation, 1 + 0.15 * Math.sin(battle.cursorSize));
             }
+            if(di.missCount-- > 0) { gfx.DrawTextToFit("MISS!", di.x + enemySize / 2, enemyY - enemySize / 2, enemySize, "#FFFFFF"); }
         }
         if(battle.overState > 0) { // 1 = lost / 2 = won
             const tHeight = gfx.GetPixelY(0.1);
@@ -224,8 +226,6 @@ const battle = {
 
     MissCheck: function(attacker, target, isSpecial, specialType) {
         if((attacker.sand > 0 && Math.random() < 0.7) || Math.random() < 0.1) {
-            target.drawInfo.tintColor = "#FFFFF";
-            target.drawInfo.tintOpacity = 0.75;
             if(isSpecial) {
                 if(targetEnemySkills.indexOf(specialType) < 0) { // attacks can't miss if they're not targeting enemies
                     return false;
@@ -234,7 +234,9 @@ const battle = {
             } else {
                 attacker.currCool1 = 0;
             }
-            // TODO: show "MISS"
+            target.drawInfo.tintColor = "#FFFFF";
+            target.drawInfo.tintOpacity = 0.75;
+            target.drawInfo.missCount = 10;
             return true;
         }
         return false;
