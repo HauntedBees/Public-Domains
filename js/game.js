@@ -87,7 +87,7 @@ const game = {
                 }
             }
         }
-        if(localStorage.getItem("patch1.1") === null) {
+        if(localStorage.getItem("patch1.2") === null) {
             console.log("Applying patch!");
             for(let i = 0; i < player.gachas.length; i++) {
                 const me = player.gachas[i];
@@ -103,7 +103,7 @@ const game = {
                 }
                 player.gachas[i] = gacha;
             }
-            localStorage.setItem("patch1.1", true);
+            localStorage.setItem("patch1.2", true);
         }
     },
     SaveData: function() {

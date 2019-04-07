@@ -92,7 +92,7 @@ function Gacha(name, file, x, y, rarity, specialType, desc, url) {
     const numCapitalsOrH = url.match(/[A-Zh]/g).length;
     const notLetters = url.match(/[^a-z]/gi).length;
     const oddLetters = url.match(/[acegikmoqsuwy]/gi).length;
-    const rarityMult = ((rarity + 5) / 7) * (isShittyPower ? 1.25 : (isGreatPower ? 0.9 : 1));
+    const rarityMult = ((rarity + 5) / 7) * (isShittyPower ? 1.5 : (isGreatPower ? 0.7 : 1));
     this.hp = 20 + Math.ceil(rarityMult * numVowels);
     this.maxhp = this.hp;
     this.power = Math.ceil(rarityMult * numCapitalsOrH);
