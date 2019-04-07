@@ -3,7 +3,7 @@ let player = {
     eploids: 500, coins: 1000, 
     freeFiveCards: 1, storyState: 0, // max = 40 
     questsCleared: [], messagesCleared: [],
-    todaysPrizesWon: 0, 
+    todaysPrizesWon: 0, autoAttack: false
 };
 const specials = {
     "strong": {

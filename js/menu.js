@@ -79,18 +79,19 @@ const menu = {
             gfx.DrawTextbox(half, 0, half, textHeight / 2, "ePloids: " + player.eploids);
             gfx.DrawEffect(0, textHeight / 2, 5, 1, textHeight / 2);
             gfx.DrawEffect(half, textHeight / 2, 5, 0, textHeight / 2);
-            // TODO: music, sound, and settings controls
-            //gfx.DrawButton(0, buttonBottomY - textHeight, half, textHeight, "Missions (" + si.missions.numPrizes + ")", si.btnPress === 1);
+            // TODO: music, sound controls
+            gfx.DrawButton(0, buttonBottomY - textHeight, half, textHeight, "Settings", si.btnPress === 1);
             gfx.DrawButton(half, buttonBottomY - textHeight, half, textHeight, "Messages (" + si.msg.length + ")", si.btnPress === 2);
-        } else if(si.state === 1) { // MISSION TODO
-            gfx.DrawTextbox(0, 0, full, textHeight, "Available Missions");
+        } else if(si.state === 1) { // SETTINGS
+            gfx.DrawTextbox(0, 0, full, textHeight, "Settings and Such");
             const topY = gfx.GetPixelY(0.3);
             const left = gfx.GetPixelX(0.8), right = gfx.GetPixelX(0.2);
-            for(let i = 0; i < si.missions.active.length; i++) {
-                const me = si.missions.active[i];
-                gfx.DrawTextbox(0, topY + i * textHeight, left, textHeight, "Clear '" + (me.name || quests[me.eID].name) + ".'");
-                gfx.DrawButton(left, topY +  i * textHeight, right, textHeight, "Fuck");
-            }
+            gfx.DrawTextbox(0, topY, left, textHeight, "Auto-Attack");
+            gfx.DrawButton(left, topY, right, textHeight, player.autoAttack ? "On" : "Off", si.btnPress === 1);
+            gfx.DrawTextbox(0, topY + textHeight, left, textHeight, "Gameplay");
+            gfx.DrawButton(left, topY + textHeight, right, textHeight, "Off", si.btnPress === 2);
+            gfx.DrawTextbox(0, topY + 2 * textHeight, left, textHeight, "Clear Save Data");
+            gfx.DrawButton(left, topY + 2 * textHeight, right, textHeight, "Do It", si.btnPress === 3);
             gfx.DrawButton(0, buttonBottomY - textHeight, full, textHeight, "Back", si.btnPress === 4, false, 0.35);
         } else if(si.state === 2) { // Notifications
             const topY = gfx.GetPixelY(0.4), qtrY = topY / 2;
@@ -101,6 +102,14 @@ const menu = {
                 gfx.DrawWrappedText(si.msg[0].text, half, qtrY, full, topY, true);
             }
             gfx.DrawButton(0, buttonBottomY - textHeight, full, textHeight, "Dismiss", si.btnPress === 1);
+        } else if(si.state === 3) { // Confirm Delete
+            gfx.DrawTextbox(0, 0, full, textHeight, "Erase Save Data?");
+            const topY = gfx.GetPixelY(0.3);
+            gfx.DrawTextbox(0, topY, full, textHeight, "This will clear ALL SAVE DATA.");
+            gfx.DrawTextbox(0, topY + textHeight, full, textHeight, "This CANNOT BE UNDONE.");
+            gfx.DrawTextbox(0, topY + 2 * textHeight, full, textHeight, "Are you SURE??");
+            gfx.DrawButton(0, topY + 3 * textHeight, half, textHeight, "BURN IT DOWN", si.btnPress === 1);
+            gfx.DrawButton(half, topY + 3 * textHeight, half, textHeight, "Nevermind", si.btnPress === 2);
         }
     },
     DrawMainMenuContent: function(si, textHeight, full) {
@@ -445,14 +454,37 @@ const menu = {
             if(si.state === 0) {
                 if(e.pageY >= (y - textHeight) && e.pageY < y) {
                     if(e.pageX < half) {
-                        //return { type: "mainMenuPress", idx: 1 }; // MISSION TODO
+                        return { type: "mainMenuPress", idx: 1 };
                     } else {
                         return { type: "mainMenuPress", idx: 2 };
                     }
                 }
+            } else if(si.state === 1) {
+                const topY = gfx.GetPixelY(0.3), left = gfx.GetPixelX(0.8);
+                if(e.pageX >= left) {
+                    if(e.pageY >= topY && e.pageY <= (topY + textHeight)) {
+                        return { type: "mainMenuPress", idx: 1 };
+                    } else if(e.pageY >= (topY + textHeight) && e.pageY <= (topY + 2 * textHeight)) {
+                        return { type: "mainMenuPress", idx: 2 };
+                    } else if(e.pageY >= (topY + 2 * textHeight) && e.pageY <= (topY + 3 * textHeight)) {
+                        return { type: "mainMenuPress", idx: 3 };
+                    }
+                }
+                if(e.pageY >= (y - textHeight) && e.pageY < y) {
+                    return { type: "mainMenuPress", idx: 4 };
+                }
             } else if(si.state === 2) {
                 if(e.pageY >= (y - textHeight) && e.pageY < y) {
                     return { type: "mainMenuPress", idx: 1 };
+                }
+            } else if(si.state === 3) {
+                const topY = gfx.GetPixelY(0.3) + 3 * textHeight;
+                if(e.pageY >= topY && e.pageY <= (topY + textHeight)) {
+                    if(e.pageX <= half) {
+                        return { type: "mainMenuPress", idx: 1 };
+                    } else {
+                        return { type: "mainMenuPress", idx: 2 };
+                    }
                 }
             }
         } else if(menu.state === 1) { // Battles
@@ -755,8 +787,15 @@ const menu = {
     HandleMainMenuClick: function(si, press) {
         if(si.state === 0) { // main menu
             si.state = press.idx;
-        } else if(si.state === 1) { // Quest Menu
-
+        } else if(si.state === 1) { // Settings Menu
+            if(press.idx === 1) {
+                player.autoAttack = !player.autoAttack;
+                game.SaveData();
+            } else if(press.idx === 3) {
+                si.state = 3;
+            } else if(press.idx === 4) {
+                si.state = 0;
+            }
         } else if(si.state === 2) { // Viewing Notification List
             if(si.msg.length > 0) {
                 player.messagesCleared.push(si.msg[0].idx);
@@ -764,6 +803,13 @@ const menu = {
             si.msg = dailies.GetMessages();
             if(si.msg.length === 0) {
                 si.state = 0;
+            }
+        } else if(si.state === 3) {
+            if(press.idx === 2) {
+                si.state = 1;
+            } else {
+                localStorage.clear();
+                location.reload();
             }
         }
     },

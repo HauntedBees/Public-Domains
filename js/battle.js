@@ -137,6 +137,9 @@ const battle = {
                 me.hp -= me.poisonPower;
                 me.poisonTimer = 2 + Math.floor(13 * Math.random());
             }
+            if(me.currCool1 >= me.cooldown1 && player.autoAttack) {
+                battle.PlayerAttack({ type: "button", idx: i, player: i, special: false });
+            }
         }
         for(let i = 0; i < battle.enemy.length; i++) {
             const me = battle.enemy[i];
@@ -271,6 +274,7 @@ const battle = {
     PlayerAttack: function(attackInfo) {
         const attacker = battle.playerTeam[attackInfo.player];
         const target = battle.enemy[battle.targetIdx];
+        if(target === undefined) { return; }
         if(attacker.freeze > 0 || attacker.hp <= 0 || battle.MissCheck(attacker, target, attackInfo.special, attacker.special)) { return; }
         if(attackInfo.special) {
             attacker.currCool2 = 0;
