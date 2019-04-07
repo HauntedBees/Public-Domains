@@ -23,7 +23,7 @@ const game = {
             LevelUpGatcha(player.gachas[i]);
         }
         const canvasLayers = ["background", "characters", "HUD", "menu", "menutext"];
-        const assetsToLoad = ["coin", "pd0", "pd1", "pd2", "pd3", "pd4", "pd5", "pd6", "pd7",
+        const assetsToLoad = ["coin", "pd0", "pd1", "pd2", "pd3", "pd4", "pd5", "pd6", "pd7", "pd8",
                               "mapicons", "bgmenu", "bgcolus", "bg0", "bg1", "bg2", "bg3", "bg4", 
                               "charframe", "charframebottom", "charframesel", "charframebottomsel", "sparkle",
                               "banker",                                 // https://commons.wikimedia.org/wiki/File:The_Banker.JPG
@@ -53,19 +53,9 @@ const game = {
         document.addEventListener("touchend", input.Release);
         document.addEventListener("mouseup", input.Release);
         game.currentHandler = loader;
-        /*game.currentHandler = menu;
-        game.currentHandler.SetUp();
-        game.drawIdx = setInterval(game.MainLoop, 20);
-        game.MainLoop();*/
     },
     MainLoop: function() {
         game.currentHandler.Draw();
-        /*const now = performance.now();
-        if(game.lastTime) {
-            const fps = Math.round(1000 / (now - game.lastTime));
-            gfx.DrawTextToFit("FPS:" + fps, 210, 40, 500, "#000000");
-        }
-        game.lastTime = now;*/
     },
     SwitchToBattle: function(battleInfo, lastStateInfo, questID) {
         game.currentHandler.CleanUp();
