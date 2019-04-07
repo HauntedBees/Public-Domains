@@ -222,11 +222,14 @@ const battle = {
         if(me.aggro > 0) { gfx.DrawEffect(x, y, 4, 0, size); x += size; }
     },
 
-    MissCheck: function(attacker, target, isSpecial) {
+    MissCheck: function(attacker, target, isSpecial, specialType) {
         if((attacker.sand > 0 && Math.random() < 0.7) || Math.random() < 0.1) {
             target.drawInfo.tintColor = "#FFFFF";
             target.drawInfo.tintOpacity = 0.75;
             if(isSpecial) {
+                if(targetEnemySkills.indexOf(specialType) < 0) { // attacks can't miss if they're not targeting enemies
+                    return false;
+                }
                 attacker.currCool2 = 0;
             } else {
                 attacker.currCool1 = 0;
@@ -249,7 +252,7 @@ const battle = {
         const targIdxIdx = battle.GetEnemyTarget();
         const targIdx = battle.livingPlayerIndexes[targIdxIdx];
         const target = battle.playerTeam[targIdx];
-        if(battle.MissCheck(attacker, target, special)) { return; }
+        if(battle.MissCheck(attacker, target, special, attacker.special)) { return; }
         if(special) {
             attacker.currCool2 = 0;
             specials[attacker.special].func(attacker, target, false);
@@ -266,7 +269,7 @@ const battle = {
     PlayerAttack: function(attackInfo) {
         const attacker = battle.playerTeam[attackInfo.player];
         const target = battle.enemy[battle.targetIdx];
-        if(attacker.freeze > 0 || attacker.hp <= 0 || battle.MissCheck(attacker, target, attackInfo.special)) { return; }
+        if(attacker.freeze > 0 || attacker.hp <= 0 || battle.MissCheck(attacker, target, attackInfo.special, attacker.special)) { return; }
         if(attackInfo.special) {
             attacker.currCool2 = 0;
             specials[attacker.special].func(attacker, target, true);

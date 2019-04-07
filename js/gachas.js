@@ -72,6 +72,7 @@ function GetEXPFromGacha(g) { return 5 * g.level * g.power; }
 function GetGatchaUpgradePrice(g) { // measured in Coinies, not ePloids
     return Math.floor((g.rarity / 2) * g.level) * 10;
 }
+const targetEnemySkills = ["debuff", "freeze", "freeze2", "poison", "poison2", "poisonAll", "rage", "sand", "strong", "weak", "weak2", "weakAll", "weakAll2"];
 const shittySkills = ["sand", "rage", "weak", "shield", "strong"];
 const greatSkills = ["cure", "freeze2", "freeze", "healAll2", "healWeak2", "shieldAll2", "shieldAll", "speedAll", "speedAll2"];
 function Gacha(name, file, x, y, rarity, specialType, desc, url) {
